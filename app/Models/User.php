@@ -48,4 +48,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function imageUrl()
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+
+        return asset('images/default-avatar.png');
+    }
 }
