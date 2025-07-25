@@ -18,7 +18,8 @@
                     </x-primary-button>
                 </a>
 
-                <!-- Settings Dropdown -->
+               @auth
+                    <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -55,6 +56,19 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
+               @endauth
+
+               @guest
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <a href="{{ route('login') }}" class="text-gray-500 hover:text-gray-700">
+                            {{ __('Login') }}
+                        </a>
+                        <span class="mx-2">|</span>
+                        <a href="{{ route('register') }}" class="text-gray-500 hover:text-gray-700">
+                            {{ __('Register') }}
+                        </a> 
+                    </div>
+               @endguest
 
                 <!-- Hamburger -->
                 <div class="-me-2 flex items-center sm:hidden">
@@ -74,6 +88,7 @@
         </div>
     </div>
 
+    @auth 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <!-- Responsive Settings Options -->
@@ -101,4 +116,6 @@
             </div>
         </div>
     </div>
+
+    @endauth
 </nav>
