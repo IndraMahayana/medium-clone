@@ -10,10 +10,15 @@
                         </x-user-avatar>
                         {{-- user section --}}
                         <div>
-                            <div class="flex gap-2">
+                            <x-follow-ctr :user="$post->user" class="flex gap-2">
                                 <a href="{{ route('profile.show', $post->user) }}">{{ $post->user->name }}</a>
-                                <a href="#" class="text-emerald-500">Follow</a>
-                            </div>
+                                &middot;
+                                <button
+                                @click="follow()"
+                                x-text="following ? 'Unfollow' : 'Follow'"
+                                :class="following ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'"
+                                ></button>
+                            </x-follow-ctr>
                             <div class="flex gap-3 text-gray-500 text-sm">
                                 {{ $post->readTime() }}
                                 &middot;
