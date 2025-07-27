@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     {{-- clap section --}}
-                    <x-clap-button clapCount="4.4k"></x-clap-button>
+                    <x-clap-button :post='$post'></x-clap-button>
 
                     {{-- content section --}}
                     <div class="mt-8">
@@ -46,7 +46,7 @@
                     </div>
 
                     {{-- clap section --}}
-                    <x-clap-button clapCount="4.4k"></x-clap-button>
+                    <x-clap-button :post="$post"></x-clap-button>
                 </div>
             </div>
         </div>
