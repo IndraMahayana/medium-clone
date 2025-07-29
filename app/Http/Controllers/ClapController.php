@@ -16,10 +16,10 @@ class ClapController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $hasClapped = auth()->user()->hasClapped($post);
+        $hasClapped = $user->hasClapped($post);
 
         if($hasClapped) {
-            $post->claps()->where('user_id', auth()->id())->delete();
+            $post->claps()->where('user_id', $user->id)->delete();
         } else {
             $post->claps()->create([
                 'user_id' => $user->id,

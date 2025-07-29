@@ -12,12 +12,11 @@
                         <div>
                             <x-follow-ctr :user="$post->user" class="flex gap-2">
                                 <a href="{{ route('profile.show', $post->user) }}">{{ $post->user->name }}</a>
-                                &middot;
-                                <button
-                                @click="follow()"
-                                x-text="following ? 'Unfollow' : 'Follow'"
-                                :class="following ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'"
-                                ></button>
+                                @auth
+                                    &middot;
+                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'"
+                                        :class="following ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'"></button>
+                                @endauth
                             </x-follow-ctr>
                             <div class="flex gap-3 text-gray-500 text-sm">
                                 {{ $post->readTime() }}
@@ -41,7 +40,7 @@
                     {{-- category section --}}
                     <div class="mt-8">
                         <x-primary-button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                            {{ $post->category ? $post->category->name : 'No Category' }}    
+                            {{ $post->category ? $post->category->name : 'No Category' }}
                         </x-primary-button>
                     </div>
 
