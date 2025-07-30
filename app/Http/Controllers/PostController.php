@@ -8,6 +8,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+// use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -16,9 +18,15 @@ class PostController extends Controller
      */
     public function index()
     {
+        // DB::listen(function ($query) {
+        //     Log::info($query->sql);
+        // });
+
         $user = auth()->user();
 
-        $query = Post::latest();
+        $query = Post::with('user')
+            ->withCount('claps')
+            ->latest();
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
@@ -97,7 +105,11 @@ class PostController extends Controller
 
     public function category(Category $category)
     {
-        $posts = $category->posts()->latest()->paginate(5);
+        $posts = $category->posts()
+            ->with('user')
+            ->withCount('claps')
+            ->latest()
+            ->paginate(5);
 
         return View('post.index', [
             'posts' => $posts,
