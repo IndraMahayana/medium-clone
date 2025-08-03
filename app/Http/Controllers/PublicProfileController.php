@@ -9,6 +9,7 @@ class PublicProfileController extends Controller
 {
     public function show(Request $request, User $user) {
         $posts = $user->posts()
+            ->where('published_at', '<=', now())
             ->latest()
             ->paginate(10);
             

@@ -25,6 +25,26 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- delete edit --}}
+                    @if ($post->user_id === Auth::id())
+                        <div class="mt-4">
+                            <a href="{{ route('post.edit', $post) }}">
+                                <x-primary-button>
+                                    Edit Post
+                                </x-primary-button>
+                            </a>
+
+                            <form class="inline-block" action="{{ route('post.destroy', $post->slug) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <x-danger-button>
+                                    Delete Post
+                                </x-danger-button>
+                            </form>
+                        </div>
+                    @endif
+
                     {{-- clap section --}}
                     <x-clap-button :post='$post'></x-clap-button>
 
